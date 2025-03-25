@@ -58,9 +58,18 @@ const Contact = () => {
     setIsSubmitting(true);
     
     try {
-      // Here you can add your form submission logic
-      // For now, we'll simulate a submission
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const response = await fetch('https://formspree.io/f/mqaplpdn', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Form submission failed');
+      }
+
       setIsSubmitted(true);
       setFormData({
         name: '',
